@@ -1,0 +1,12 @@
+.ruby-version
+.rbenv-gemsets
+*.code-workspace
+waiters.csv
+coverage
+*.xls*
+config.yml
+config/database.yml
+config/config.yml
+.byebug_history
+.vscode
+.vscode/*

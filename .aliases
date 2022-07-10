@@ -1,0 +1,49 @@
+alias brightness="xrandr --output eDP-1 --brightness"
+
+alias aptsr="sudo apt search"
+alias aptin="sudo apt install"
+alias aptrm="sudo apt remove"
+alias aptarm="sudo apt autoremove"
+alias aptupd="sudo apt update"
+alias aptupg="sudo apt upgrade"
+alias aptup="aptupd && aptupg"
+
+alias cp= "cp -i"
+alias mv= "mv -i"
+alias rm= "rm -i"
+
+alias mkdir="mkdir -pv"
+
+alias config='/usr/bin/git --git-dir=$HOME/.cfg/ --work-tree=$HOME'
+
+alias wicn="nmcli d wifi connect "$1" password "$2" ifname wlp2s0"
+alias wisc="nmcli dev wifi"
+
+alias vim="nvim"
+
+up () {
+  local d=""
+  local limit="$1"
+
+  # Default to limit of 1
+  if [ -z "$limit" ] || [ "$limit" -le 0 ]; then
+    limit=1
+  fi
+
+  for ((i=1;i<=limit;i++)); do
+    d="../$d"
+  done
+
+  # perform cd. Show error if cd fails
+  if ! cd "$d"; then
+    echo "Couldn't go up $limit dirs.";
+  fi
+}
+
+alias record="ffmpeg -f x11grab -video_size 1920x1080 -framerate 25 -i $DISPLAY -f alsa -i default -c:v libx264 -preset ultrafast -c:a aac"
+
+wpp_converter() {
+  ffmpeg -i "$1" -c:v libx264 -profile:v baseline -level 3.0 -pix_fmt yuv420p "$2"
+}
+
+alias fjson="echo '"$1"' | python -m json.tool"
