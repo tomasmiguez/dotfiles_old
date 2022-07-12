@@ -14,7 +14,7 @@ call plug#begin('~/.vim/plugged')
   Plug 'williamboman/nvim-lsp-installer'
   Plug 'neovim/nvim-lspconfig'
   Plug 'hrsh7th/nvim-cmp'
-  Plug 'hrsh7th/cmp-nvim-lsp' 
+  Plug 'hrsh7th/cmp-nvim-lsp'
   Plug 'saadparwaiz1/cmp_luasnip'
   Plug 'L3MON4D3/LuaSnip'
   Plug 'rafamadriz/friendly-snippets'
@@ -163,7 +163,7 @@ _G.telescope_find_files_in_path = function(path)
  local _path = path or vim.fn.input("Dir: ", "", "dir")
  require("telescope.builtin").find_files({search_dirs = {_path}})
 end
-         
+
 _G.telescope_live_grep_in_path = function(path)
  local _path = path or vim.fn.input("Dir: ", "", "dir")
  require("telescope.builtin").live_grep({search_dirs = {_path}})
