@@ -67,7 +67,25 @@ let g:netrw_banner=0 " disable banner in netrw
 let g:netrw_liststyle=3 " tree view in netrw
 " let g:markdown_fenced_languages = ['javascript', 'js=javascript', 'json=javascript'] " syntax highlighting in markdown
 
-let mapleader = " " " space as leader key
+" Remove trailing whitespaces
+function! <SID>StripTrailingWhitespaces()
+    let l = line(".")
+    let c = col(".")
+    %s/\s\+$//e
+    call cursor(l, c)
+endfun
+
+" Using file extension
+autocmd BufWritePre * :call <SID>StripTrailingWhitespaces()
+
+" Often files are not necessarily identified by extension, if so use e.g.:
+" autocmd BufWritePre * if &ft =~ 'sh\|perl\|python' | :call <SID>StripTrailingWhitespaces() | endif
+
+" Or if you want it to be called when file-type i set
+" autocmd FileType sh,perl,python  :call <SID>StripTrailingWhitespaces()
+
+" space as leader key
+let mapleader = " "
 
 inoremap ( ()<left>
 inoremap [ []<left>
