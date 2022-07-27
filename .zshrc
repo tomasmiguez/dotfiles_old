@@ -109,7 +109,7 @@ alias rake='noglob rake'
 
 eval "$(starship init zsh)"
 
-export PATH="${KREW_ROOT:-$HOME/.krew}/bin:$PATH"
+export PATH="$HOME/.emacs.d/bin:${KREW_ROOT:-$HOME/.krew}/bin:$PATH"
 
 export GO_PATH=~/go
 export PATH=$PATH:$GO_PATH/bin

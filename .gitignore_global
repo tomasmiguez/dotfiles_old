@@ -10,3 +10,4 @@ config/config.yml
 .byebug_history
 .vscode
 .vscode/*
+.solargraph.yml

@@ -8,9 +8,9 @@ alias aptupd="sudo apt update"
 alias aptupg="sudo apt upgrade"
 alias aptup="aptupd && aptupg"
 
-alias cp= "cp -i"
-alias mv= "mv -i"
-alias rm= "rm -i"
+alias cp="cp -i"
+alias mv="mv -i"
+alias rm="rm -i"
 
 alias mkdir="mkdir -pv"
 
@@ -20,6 +20,7 @@ alias wicn="nmcli d wifi connect "$1" password "$2" ifname wlp2s0"
 alias wisc="nmcli dev wifi"
 
 alias vim="nvim"
+alias emacs="emacsclient -c -a"
 
 up () {
   local d=""

@@ -11,13 +11,12 @@ call plug#begin('~/.vim/plugged')
   Plug 'nvim-telescope/telescope-fzf-native.nvim', { 'do': 'cmake -S. -Bbuild -DCMAKE_BUILD_TYPE=Release && cmake --build build --config Release && cmake --install build --prefix build' }
   Plug 'kyazdani42/nvim-web-devicons'
   Plug 'kyazdani42/nvim-tree.lua'
-  Plug 'williamboman/nvim-lsp-installer'
+  Plug 'williamboman/mason.nvim'
   Plug 'neovim/nvim-lspconfig'
   Plug 'hrsh7th/nvim-cmp'
   Plug 'hrsh7th/cmp-nvim-lsp'
   Plug 'saadparwaiz1/cmp_luasnip'
   Plug 'L3MON4D3/LuaSnip'
-  Plug 'rafamadriz/friendly-snippets'
   Plug 'tpope/vim-surround'
   Plug 'qpkorr/vim-bufkill'
   Plug 'ggandor/lightspeed.nvim'
@@ -27,7 +26,7 @@ call plug#begin('~/.vim/plugged')
   Plug 'dracula/vim', { 'as': 'dracula' }
   Plug 'hoob3rt/lualine.nvim'
   Plug 'lewis6991/gitsigns.nvim'
-  " Plug 'folke/tokyonight.nvim', { 'branch': 'main' }
+  Plug 'folke/tokyonight.nvim', { 'branch': 'main' }
   " Plug 'TimUntersberger/neogit'
   " Plug 'folke/zen-mode.nvim'
 call plug#end()
@@ -86,6 +85,9 @@ autocmd BufWritePre * :call <SID>StripTrailingWhitespaces()
 
 " space as leader key
 let mapleader = " "
+
+" Leader keybinds
+nnoremap <leader>s :nohl<CR>
 
 inoremap ( ()<left>
 inoremap [ []<left>
@@ -191,11 +193,11 @@ require('telescope').setup({
 })
 EOF
 
-nnoremap <leader><space> :Telescope git_files<CR>
+nnoremap <leader>fn :Telescope git_files<CR>
 nnoremap <leader>fd :lua telescope_find_files_in_path()<CR>
 nnoremap <leader>fD :lua telescope_live_grep_in_path()<CR>
 nnoremap <leader>fo :Telescope file_browser<CR>
-nnoremap <leader>fn :lua require("telescope.builtin").find_files({no_ignore=true})<CR>
+nnoremap <leader><space> :lua require("telescope.builtin").find_files({no_ignore=true})<CR>
 nnoremap <leader>fg :Telescope git_branches<CR>
 nnoremap <leader>fb :Telescope buffers<CR>
 nnoremap <leader>fs :Telescope lsp_document_symbols<CR>
@@ -211,25 +213,12 @@ lua require('telescope').load_extension('fzf')
 lua require("nvim-tree").setup()
 
 nnoremap <leader>tt :NvimTreeToggle<CR>
-nnoremap <leader>tf :NvimTreeFocus<CR>
-nnoremap <leader>tF :NvimTreeFindFile<CR>
+nnoremap <leader>tF :NvimTreeFocus<CR>
+nnoremap <leader>tf :NvimTreeFindFile<CR>
 nnoremap <leader>tc :NvimTreeCollapse<CR>
 
-" williamboman/nvim-lsp-installer
-lua << EOF
-require("nvim-lsp-installer").setup {}
-
--- require("nvim-lsp-installer").setup({
---     automatic_installation = true, -- automatically detect which servers to install (based on which servers are set up via lspconfig)
---     ui = {
---         icons = {
---             server_installed = "✓",
---             server_pending = "➜",
---             server_uninstalled = "✗"
---         }
---     }
--- })
-EOF
+" williamboman/mason.nvim
+lua require("mason").setup()
 
 " neovim/nvim-lspconfig
 nnoremap <silent> gd    <cmd>lua vim.lsp.buf.definition()<CR>
@@ -260,7 +249,7 @@ lspconfig['solargraph'].setup {
   }
 }
 
-local servers = { 'vimls' , 'eslint', 'tsserver'}
+local servers = { 'gopls', 'vimls' , 'eslint', 'tsserver'}
 for _, lsp in ipairs(servers) do
   lspconfig[lsp].setup {
     -- on_attach = my_custom_on_attach,
@@ -313,14 +302,11 @@ cmp.setup {
 }
 EOF
 
-" L3MON4D3/LuaSnip
-lua require("luasnip.loaders.from_vscode").lazy_load()
-
-nnoremap <leader>gg :Neogit<cr>
-nnoremap <leader>gd :DiffviewOpen<cr>
-nnoremap <leader>gD :DiffviewOpen main<cr>
-nnoremap <leader>gl :Neogit log<cr>
-nnoremap <leader>gp :Neogit push<cr>
+" nnoremap <leader>gg :Neogit<cr>
+" nnoremap <leader>gd :DiffviewOpen<cr>
+" nnoremap <leader>gD :DiffviewOpen main<cr>
+" nnoremap <leader>gl :Neogit log<cr>
+" nnoremap <leader>gp :Neogit push<cr>
 
 " qpkorr/vim-bufkill
 let g:BufKillActionWhenBufferDisplayedInAnotherWindow = 'kill'

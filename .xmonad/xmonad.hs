@@ -125,13 +125,13 @@ myStartupHook = do
     spawnOnce "volumeicon"
     -- spawnOnce "/usr/bin/emacs --daemon" -- emacs daemon for the emacsclient
     spawnOnce "blueman-tray"
-    
+
     spawnOnce "slack"
 
-    spawn ("xinput set-prop 11 311 1") -- Pad natural scrolling enabled
-    spawn ("xinput set-prop 11 327 1") -- Pad tapping enabled
+    spawn ("xinput set-prop 16 311 1") -- Pad natural scrolling enabled
+    spawn ("xinput set-prop 16 329 1") -- Pad tapping enabled
     spawn ("sleep 2 && dunst")
-  
+
     -- spawn ("sleep 2 && conky -c $HOME/.config/conky/xmonad/" ++ colorScheme ++ "-01.conkyrc")
     spawn ("sleep 2 && trayer --edge top --align right --widthtype request --padding 6 --SetDockType true --SetPartialStrut true --expand true --monitor 1 --transparent true --alpha 0 " ++ colorTrayer ++ " --height 22")
 
@@ -377,13 +377,13 @@ myKeys conf@(XConfig {XMonad.modMask = modm}) = M.fromList $
 
     -- Restart xmonad
     , ((modm              , xK_q     ), spawn "xmonad --recompile; xmonad --restart")
-    
-    -- Closa all windows 
+
+    -- Closa all windows
     , ((modm .|. shiftMask, xK_o     ), killAll)
-    
+
     -- Go to empty workspace
     , ((modm              , xK_m     ), viewEmptyWorkspace)
-    
+
     -- Tag current window to empty workspace
     , ((modm .|. shiftMask, xK_m     ), tagToEmptyWorkspace)
 
@@ -423,12 +423,12 @@ myKeys conf@(XConfig {XMonad.modMask = modm}) = M.fromList $
         | (key, sc) <- zip [xK_w, xK_e, xK_r] [0..]
         , (f, m) <- [(W.view, 0), (W.shift, shiftMask)]]
     ++
-    
+
     [ ((modm              , xK_Print), spawn "flameshot gui")
     , ((modm .|. shiftMask, xK_Print), spawn "flameshot full -c")
     ]
 --    ++
-    
+
 --    [ ((modm              , xK_v), sequence_ [
 --    	spawn "xmonad --restart",
 --    	spawn "trayer"])
