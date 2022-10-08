@@ -6,27 +6,39 @@ call plug#begin('~/.vim/plugged')
   " Plug 'akinsho/git-conflict.nvim'
   " Plug 'tpope/vim-repeat'
   " Plug 'tpope/vim-fugitive'
+  Plug 'tpope/vim-sleuth'
+  Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
+  " Plug 'abecodes/tabout.nvim'
   Plug 'nvim-lua/plenary.nvim'
   Plug 'nvim-telescope/telescope.nvim'
   Plug 'nvim-telescope/telescope-fzf-native.nvim', { 'do': 'cmake -S. -Bbuild -DCMAKE_BUILD_TYPE=Release && cmake --build build --config Release && cmake --install build --prefix build' }
   Plug 'kyazdani42/nvim-web-devicons'
   Plug 'kyazdani42/nvim-tree.lua'
-  Plug 'williamboman/mason.nvim'
   Plug 'neovim/nvim-lspconfig'
+  Plug 'williamboman/mason.nvim'
+  Plug 'williamboman/mason-lspconfig.nvim'
   Plug 'hrsh7th/nvim-cmp'
   Plug 'hrsh7th/cmp-nvim-lsp'
+  Plug 'hrsh7th/cmp-buffer'
+  Plug 'hrsh7th/cmp-path'
+  Plug 'hrsh7th/cmp-nvim-lua'
   Plug 'saadparwaiz1/cmp_luasnip'
   Plug 'L3MON4D3/LuaSnip'
+  Plug 'VonHeikemen/lsp-zero.nvim'
   Plug 'tpope/vim-surround'
   Plug 'qpkorr/vim-bufkill'
   Plug 'ggandor/lightspeed.nvim'
   Plug 'yuezk/vim-js'
   Plug 'wakatime/vim-wakatime'
   " Appearance
+  Plug 'lukas-reineke/indent-blankline.nvim'
+  Plug 'catppuccin/nvim', {'as': 'catppuccin'}
+  Plug 'folke/tokyonight.nvim', { 'branch': 'main' }
+  Plug 'tiagovla/tokyodark.nvim'
   Plug 'dracula/vim', { 'as': 'dracula' }
   Plug 'hoob3rt/lualine.nvim'
   Plug 'lewis6991/gitsigns.nvim'
-  Plug 'folke/tokyonight.nvim', { 'branch': 'main' }
+  Plug 'xiyaowong/nvim-transparent'
   " Plug 'TimUntersberger/neogit'
   " Plug 'folke/zen-mode.nvim'
 call plug#end()
@@ -53,6 +65,8 @@ set signcolumn=yes " add a column for sings (e.g. LSP, ...)
 set updatetime=520 " time until update
 set undofile " persists undo tree
 set title " Show folder on bar
+set mouse= " Disable mouse
+set colorcolumn=80 " Color column number 80
 let &titlestring = '%{%substitute(getcwd(), "^" . expand("$HOME") . "/repos/\\(.\\{-}\\)/.*", "\\=submatch(1)", "")%}'
 set clipboard=unnamedplus " use system clipboard
 
@@ -88,12 +102,6 @@ let mapleader = " "
 
 " Leader keybinds
 nnoremap <leader>s :nohl<CR>
-
-inoremap ( ()<left>
-inoremap [ []<left>
-inoremap { {}<left>
-inoremap {<CR> {<CR>}<ESC>O
-inoremap {;<CR> {<CR>};<ESC>O
 
 " Jump to the next or previous line that has the same level or a lower
 " level of indentation than the current line.
@@ -142,6 +150,35 @@ onoremap <silent> ]l :call NextIndent(0, 1, 0, 1)<CR>
 onoremap <silent> [L :call NextIndent(1, 0, 1, 1)<CR>
 onoremap <silent> ]L :call NextIndent(1, 1, 1, 1)<CR>
 
+"
+lua <<EOF
+require'nvim-treesitter.configs'.setup {
+  -- A list of parser names, or "all"
+  ensure_installed = { "ruby", "lua", "go" },
+
+  -- Install parsers synchronously (only applied to `ensure_installed`)
+  sync_install = false,
+
+  -- Automatically install missing parsers when entering buffer
+  auto_install = true,
+}
+
+-- vim.wo.foldmethod = 'expr'
+-- vim.wo.foldexpr = 'nvim_treesitter#foldexpr()'
+EOF
+
+
+" abecodes/tabout.nvim
+" lua require('tabout').setup{}
+
+" lsp-zero
+lua <<EOF
+local lsp = require('lsp-zero')
+
+lsp.preset('recommended')
+lsp.setup()
+EOF
+
 " szw/vim-maximizer
 nnoremap <silent> <C-w>m :MaximizerToggle!<CR>
 
@@ -176,7 +213,9 @@ require('telescope').setup({
   defaults = {
     mappings = {
       i = {
-        ["<C-q>"] = actions.send_to_qflist
+        ["<C-q>"] = actions.send_to_qflist,
+        ["<C-j>"] = actions.move_selection_next,
+        ["<C-k>"] = actions.move_selection_previous,
       }
     },
     vimgrep_arguments = {
@@ -217,102 +256,54 @@ nnoremap <leader>tF :NvimTreeFocus<CR>
 nnoremap <leader>tf :NvimTreeFindFile<CR>
 nnoremap <leader>tc :NvimTreeCollapse<CR>
 
-" williamboman/mason.nvim
-lua require("mason").setup()
-
-" neovim/nvim-lspconfig
-nnoremap <silent> gd    <cmd>lua vim.lsp.buf.definition()<CR>
-nnoremap <silent> gh    <cmd>lua vim.lsp.buf.hover()<CR>
-nnoremap <silent> gH    <cmd>:Telescope lsp_code_actions<CR>
-nnoremap <silent> gD    <cmd>lua vim.lsp.buf.implementation()<CR>
-nnoremap <silent> <c-k> <cmd>lua vim.lsp.buf.signature_help()<CR>
-nnoremap <silent> gr    <cmd>lua vim.lsp.buf.references()<CR>
-nnoremap <silent> gR    <cmd>lua vim.lsp.buf.rename()<CR>
-nnoremap <leader>F      <cmd>lua vim.lsp.buf.format()<CR>
-
-" hrsh7th/nvim-cmp
-lua << EOF
--- Add additional capabilities supported by nvim-cmp
-local capabilities = vim.lsp.protocol.make_client_capabilities()
-capabilities = require('cmp_nvim_lsp').update_capabilities(capabilities)
-
-local lspconfig = require('lspconfig')
-
--- Enable some language servers with the additional completion capabilities offered by nvim-cmp
-lspconfig['solargraph'].setup {
-  capabilities = capabilities,
-  filetypes = {'ruby', 'haml'},
-  settings = {
-    solargraph = {
-      diagnostics = true
-    }
-  }
-}
-
-local servers = { 'gopls', 'vimls' , 'eslint', 'tsserver'}
-for _, lsp in ipairs(servers) do
-  lspconfig[lsp].setup {
-    -- on_attach = my_custom_on_attach,
-    capabilities = capabilities,
-  }
-end
-
--- luasnip setup
-local luasnip = require 'luasnip'
-
--- nvim-cmp setup
-local cmp = require 'cmp'
-cmp.setup {
-  snippet = {
-    expand = function(args)
-      luasnip.lsp_expand(args.body)
-    end,
-  },
-  mapping = cmp.mapping.preset.insert({
-    ['<C-d>'] = cmp.mapping.scroll_docs(-4),
-    ['<C-f>'] = cmp.mapping.scroll_docs(4),
-    ['<C-Space>'] = cmp.mapping.complete(),
-    ['<CR>'] = cmp.mapping.confirm {
-      behavior = cmp.ConfirmBehavior.Replace,
-      select = true,
-    },
-    ['<Tab>'] = cmp.mapping(function(fallback)
-      if cmp.visible() then
-        cmp.select_next_item()
-      elseif luasnip.expand_or_jumpable() then
-        luasnip.expand_or_jump()
-      else
-        fallback()
-      end
-    end, { 'i', 's' }),
-    ['<S-Tab>'] = cmp.mapping(function(fallback)
-      if cmp.visible() then
-        cmp.select_prev_item()
-      elseif luasnip.jumpable(-1) then
-        luasnip.jump(-1)
-      else
-        fallback()
-      end
-    end, { 'i', 's' }),
-  }),
-  sources = {
-    { name = 'nvim_lsp' },
-    { name = 'luasnip' },
-  },
-}
-EOF
-
-" nnoremap <leader>gg :Neogit<cr>
-" nnoremap <leader>gd :DiffviewOpen<cr>
-" nnoremap <leader>gD :DiffviewOpen main<cr>
-" nnoremap <leader>gl :Neogit log<cr>
-" nnoremap <leader>gp :Neogit push<cr>
-
 " qpkorr/vim-bufkill
 let g:BufKillActionWhenBufferDisplayedInAnotherWindow = 'kill'
 
-" dracula/vim
+" lukas-reineke/indent-blankline.nvim
+lua <<EOF
+require("indent_blankline").setup {
+    -- for example, context is off by default, use this to turn it on
+    -- show_current_context = true,
+    -- show_current_context_start = true,
+  show_trailing_blankline_indent = false
+}
+EOF
+
+" theme
+" lua <<EOF
+" vim.g.catppuccin_flavour = "macchiato" -- latte, frappe, macchiato, mocha
+
+" require("catppuccin").setup()
+
+" vim.cmd [[colorscheme catppuccin]]
+" EOF
+
 colorscheme dracula
+
+" highlight Normal guibg=none
+" highlight NonText guibg=none
+lua <<EOF
+require("transparent").setup({
+  enable = true, -- boolean: enable transparent
+  extra_groups = { -- table/string: additional groups that should be cleared
+    -- In particular, when you set it to 'all', that means all available groups
+
+    -- example of akinsho/nvim-bufferline.lua
+    "BufferLineTabClose",
+    "BufferlineBufferSelected",
+    "BufferLineFill",
+    "BufferLineBackground",
+    "BufferLineSeparator",
+    "BufferLineIndicatorSelected",
+  },
+  exclude = {}, -- table: groups you don't want to clear
+})
+EOF
+
+" lua <<EOF
+" vim.g.tokyonight_style = "night"
+" vim.cmd[[colorscheme tokyonight]]
+" EOF
 
 " hoob3rt/lualine.nvim
 lua << EOF

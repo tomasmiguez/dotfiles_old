@@ -392,7 +392,7 @@ myKeys conf@(XConfig {XMonad.modMask = modm}) = M.fromList $
 
     , ((modm .|. shiftMask, xK_f     ), promptSearchBrowser greenXPConfig myBrowser google)
 
-    , ((modm              , xK_f     ), spawn "~/scripts/dmenu-open-project-vscode")
+    , ((modm              , xK_f     ), spawn "~/scripts/dmenu-open-project-nvim")
 
     --, ((modm .|. shiftMask, xK_f     ), selectSearchBrowser greenXPConfig myBrowser google)
 
@@ -482,5 +482,5 @@ main = do
         , borderWidth        = myBorderWidth
         , normalBorderColor  = myNormColor
         , focusedBorderColor = myFocusColor
-        , logHook = dynamicLogWithPP $ xmobarPP { ppOutput = hPutStrLn h, ppOrder = reverse }
+        , logHook = dynamicLogWithPP $ xmobarPP { ppOutput = hPutStrLn h, ppOrder = reverse, ppTitle = xmobarColor "orange" "" . shorten 28 }
         }
