@@ -3,19 +3,19 @@ local nnoremap = Remap.nnoremap
 
 local builtin = require('telescope.builtin')
 
-function with_params(fn, params)
+local function with_params(fn, params)
   return function()
     return fn(params)
   end
 end
 
-function with_no_ignore(fn)
+local function with_no_ignore(fn)
   return with_params(fn, {no_ignore=true})
 end
 
-function with_path(fn)
+local function with_path(fn)
   return function()
-    path = vim.fn.input("Dir: ", "", "dir")
+    local path = vim.fn.input("Dir: ", "", "dir")
     return fn({search_dirs = {path}})
   end
 end
