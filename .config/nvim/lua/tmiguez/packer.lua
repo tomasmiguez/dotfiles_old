@@ -48,6 +48,10 @@ return require('packer').startup(function(use)
       { 'rafamadriz/friendly-snippets' },
     }
   }
+  use {
+    'lewis6991/gitsigns.nvim',
+    config = function() require('gitsigns').setup({}) end
+  }
   use 'ggandor/lightspeed.nvim'
   use 'wakatime/vim-wakatime'
 
