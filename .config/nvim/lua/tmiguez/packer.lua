@@ -49,8 +49,13 @@ return require('packer').startup(function(use)
     }
   }
   use 'ggandor/lightspeed.nvim'
+  use 'wakatime/vim-wakatime'
 
   -- Appearance
+  use {
+    'hoob3rt/lualine.nvim',
+    config = function() require('lualine').setup({ options = { theme = "dracula" } }) end
+  }
   use {
     'lukas-reineke/indent-blankline.nvim',
     config = function() require("indent_blankline").setup({ show_trailing_blankline_indent = false }) end
