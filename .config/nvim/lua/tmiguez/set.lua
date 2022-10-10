@@ -19,7 +19,7 @@ vim.opt.swapfile = false -- don't create swapfiles
 vim.opt.undodir = '/home/tomiguez/.nvim/undodir' -- set undodir path. REMEMBER TO CREATE IT
 vim.opt.undofile = true -- persists undo tree
 
-vim.opt.cmdheight = 1 -- only one line for commands
+vim.opt.cmdheight = 0 -- only one line for commands
 
 vim.opt.shortmess = vim.opt.shortmess + 'c' -- don't need to press enter so often
 

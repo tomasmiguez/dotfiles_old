@@ -173,7 +173,7 @@ _G.packer_plugins = {
     url = "https://github.com/kartikp10/noctis.nvim"
   },
   ["noice.nvim"] = {
-    config = { "\27LJ\2\0023\0\0\2\0\3\0\0066\0\0\0'\1\1\0B\0\2\0029\0\2\0B\0\1\1K\0\1\0\nsetup\nnoice\frequire\0" },
+    config = { "\27LJ\2\2W\0\0\3\0\6\0\t6\0\0\0'\1\1\0B\0\2\0029\0\2\0005\1\4\0005\2\3\0=\2\5\1B\0\2\1K\0\1\0\rmessages\1\0\0\1\0\1\fenabled\1\nsetup\nnoice\frequire\0" },
     loaded = false,
     needs_bufread = false,
     only_cond = false,

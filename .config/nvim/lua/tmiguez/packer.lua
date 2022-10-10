@@ -72,7 +72,7 @@ return require('packer').startup(function(use)
   use {
     "folke/noice.nvim",
     requires = { "MunifTanjim/nui.nvim", "rcarriga/nvim-notify" },
-    config = function() require("noice").setup() end,
+    config = function() require("noice").setup({messages = { enabled = false }}) end,
     event = "VimEnter"
   }
   use {
