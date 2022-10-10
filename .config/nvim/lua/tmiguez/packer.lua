@@ -52,12 +52,16 @@ return require('packer').startup(function(use)
 
   -- Appearance
   use {
+    'lukas-reineke/indent-blankline.nvim',
+    config = function() require("indent_blankline").setup({ show_trailing_blankline_indent = false }) end
+  }
+  use {
     'xiyaowong/nvim-transparent',
     config = function() require("transparent").setup({ enable = true }) end
   }
   use { 'kartikp10/noctis.nvim', requires = { 'rktjmp/lush.nvim' } }
   use { 'dracula/vim', as = 'dracula' }
-  use { 'catppuccin/nvim', as = 'catppuccin'}
+  use { 'catppuccin/nvim', as = 'catppuccin' }
   use 'folke/tokyonight.nvim'
   use 'tiagovla/tokyodark.nvim'
 end)
