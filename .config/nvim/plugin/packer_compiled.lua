@@ -136,10 +136,30 @@ _G.packer_plugins = {
     path = "/home/tomiguez/.local/share/nvim/site/pack/packer/start/telescope.nvim",
     url = "https://github.com/nvim-telescope/telescope.nvim"
   },
+  ["vim-bufkill"] = {
+    loaded = true,
+    path = "/home/tomiguez/.local/share/nvim/site/pack/packer/start/vim-bufkill",
+    url = "https://github.com/qpkorr/vim-bufkill"
+  },
   ["vim-commentary"] = {
     loaded = true,
     path = "/home/tomiguez/.local/share/nvim/site/pack/packer/start/vim-commentary",
     url = "https://github.com/tpope/vim-commentary"
+  },
+  ["vim-maximizer"] = {
+    loaded = true,
+    path = "/home/tomiguez/.local/share/nvim/site/pack/packer/start/vim-maximizer",
+    url = "https://github.com/szw/vim-maximizer"
+  },
+  ["vim-repeat"] = {
+    loaded = true,
+    path = "/home/tomiguez/.local/share/nvim/site/pack/packer/start/vim-repeat",
+    url = "https://github.com/tpope/vim-repeat"
+  },
+  ["vim-surround"] = {
+    loaded = true,
+    path = "/home/tomiguez/.local/share/nvim/site/pack/packer/start/vim-surround",
+    url = "https://github.com/tpope/vim-surround"
   }
 }
 
