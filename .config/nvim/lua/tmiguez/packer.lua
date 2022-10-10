@@ -54,6 +54,10 @@ return require('packer').startup(function(use)
   }
   use 'ggandor/lightspeed.nvim'
   use 'wakatime/vim-wakatime'
+  use {
+    "windwp/nvim-autopairs",
+      config = function() require("nvim-autopairs").setup {} end
+  }
 
   -- Appearance
   use {
