@@ -68,13 +68,6 @@ return require('packer').startup(function(use)
     'lukas-reineke/indent-blankline.nvim',
     config = function() require("indent_blankline").setup({ show_trailing_blankline_indent = false }) end
   }
-  -- Packer
-  use {
-    "folke/noice.nvim",
-    requires = { "MunifTanjim/nui.nvim", "rcarriga/nvim-notify" },
-    config = function() require("noice").setup({messages = { enabled = false }}) end,
-    event = "VimEnter"
-  }
   use {
     'xiyaowong/nvim-transparent',
     config = function() require("transparent").setup({ enable = true }) end
