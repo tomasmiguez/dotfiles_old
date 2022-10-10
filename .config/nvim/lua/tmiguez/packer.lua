@@ -16,6 +16,10 @@ return require('packer').startup(function(use)
   }
   use 'tpope/vim-commentary'
   use 'kassio/neoterm'
+  use {
+    'nvim-treesitter/nvim-treesitter',
+    run = function() require('nvim-treesitter.install').update({ with_sync = true }) end,
+  }
 
   use { 
     'xiyaowong/nvim-transparent',
