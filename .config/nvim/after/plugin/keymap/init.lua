@@ -6,6 +6,12 @@ local onoremap = Remap.onoremap
 -- Hide highlight after search
 nnoremap('<leader>vs', '<cmd>nohl<CR>')
 
+-- Tabs related keybinds
+nnoremap('<leader>vto', '<cmd>tabnew<CR>')
+nnoremap('<leader>vtd', '<cmd>tabclose<CR>')
+nnoremap('<leader>vtn', '<cmd>tabnext<CR>')
+nnoremap('<leader>vtp', '<cmd>tabprevious<CR>')
+
 -- Jump to the next or previous line that has the same level or a lower
 -- level of indentation than the current line.
 --
