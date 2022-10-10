@@ -12,6 +12,11 @@ nnoremap('<leader>vtd', '<cmd>tabclose<CR>')
 nnoremap('<leader>vtn', '<cmd>tabnext<CR>')
 nnoremap('<leader>vtp', '<cmd>tabprevious<CR>')
 
+-- Quickfix list related keybinds
+nnoremap('<leader>vqc', '<cmd>cc<CR>')
+nnoremap('<leader>vqn', '<cmd>cnext<CR>')
+nnoremap('<leader>vqp', '<cmd>cprevious<CR>')
+
 -- Jump to the next or previous line that has the same level or a lower
 -- level of indentation than the current line.
 --
