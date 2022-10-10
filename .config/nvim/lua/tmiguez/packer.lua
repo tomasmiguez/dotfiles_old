@@ -15,6 +15,8 @@ return require('packer').startup(function(use)
     run = 'make' 
   }
   use 'tpope/vim-commentary'
+  use 'tpope/vim-surround'
+  use 'qpkorr/vim-bufkill'
   use 'kassio/neoterm'
   use {
     'nvim-treesitter/nvim-treesitter',
