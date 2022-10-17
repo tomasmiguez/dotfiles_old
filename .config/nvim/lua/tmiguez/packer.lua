@@ -5,6 +5,9 @@ return require('packer').startup(function(use)
   -- Packer can manage itself
   use 'wbthomason/packer.nvim'
 
+  -- Lua cache
+  use 'lewis6991/impatient.nvim'
+
   -- Functionality
   use {
     'kyazdani42/nvim-tree.lua',
