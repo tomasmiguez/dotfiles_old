@@ -34,6 +34,14 @@ vim.opt.clipboard = 'unnamedplus' -- use system clipboard
 vim.opt.title = true -- Show folder on bar
 -- let &titlestring = '%{%substitute(getcwd(), "^" . expand("$HOME") . "/repos/\\(.\\{-}\\)/.*", "\\=submatch(1)", "")%}'
 
+if string.find(vim.fn.getcwd(), vim.fn.expand("$HOME") .. '/repos/') then
+  local removed_repos = string.gsub(vim.fn.getcwd(), vim.fn.expand("$HOME") .. '/repos/', '')
+  local only_folder = string.gsub(removed_repos, "/([^/]+)/.+", '%1')
+  vim.opt.titlestring = only_folder
+else
+  vim.opt.titlestring = vim.fn.getcwd()
+end
+
 vim.opt.hlsearch = true -- search highlighting
 
 -- vim.opt.wrap = false -- no text wrap
