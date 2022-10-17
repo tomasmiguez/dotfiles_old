@@ -9,3 +9,5 @@ require('nvim-treesitter.configs').setup {
   auto_install = true,
 }
 
+vim.wo.foldmethod = 'expr'
+vim.opt.foldexpr = 'nvim_treesitter#foldexpr()'

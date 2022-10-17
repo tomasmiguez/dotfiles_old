@@ -50,6 +50,10 @@ vim.opt.termguicolors = true -- better colors, but makes it very slow!
 
 vim.g.mapleader = ' '
 
+vim.opt.foldmethod = 'expr'
+vim.opt.foldexpr = 'nvim_treesitter#foldexpr()'
+vim.opt.foldlevel = 99
+
 -- Should be overwritten on ftplugins
 
 vim.opt.expandtab = true -- space characters instead of tab
