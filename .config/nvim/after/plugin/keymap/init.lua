@@ -3,19 +3,21 @@ local nnoremap = Remap.nnoremap
 local vnoremap = Remap.vnoremap
 local onoremap = Remap.onoremap
 
+local silent = { silent = true }
+
 -- Hide highlight after search
-nnoremap('<leader>vs', '<cmd>nohl<CR>')
+nnoremap('<leader>vs', '<cmd>nohl<CR>', silent)
 
 -- Tabs related keybinds
-nnoremap('<leader>vto', '<cmd>tabnew<CR>')
-nnoremap('<leader>vtd', '<cmd>tabclose<CR>')
-nnoremap('<leader>vtn', '<cmd>tabnext<CR>')
-nnoremap('<leader>vtp', '<cmd>tabprevious<CR>')
+nnoremap('<leader>vto', '<cmd>tabnew<CR>', silent)
+nnoremap('<leader>vtd', '<cmd>tabclose<CR>', silent)
+nnoremap('<leader>vtn', '<cmd>tabnext<CR>', silent)
+nnoremap('<leader>vtp', '<cmd>tabprevious<CR>', silent)
 
 -- Quickfix list related keybinds
-nnoremap('<leader>vqc', '<cmd>cc<CR>')
-nnoremap('<leader>vqn', '<cmd>cnext<CR>')
-nnoremap('<leader>vqp', '<cmd>cprevious<CR>')
+nnoremap('<leader>vqc', '<cmd>cc<CR>', silent)
+nnoremap('<leader>vqn', '<cmd>cnext<CR>', silent)
+nnoremap('<leader>vqp', '<cmd>cprevious<CR>', silent)
 
 -- Jump to the next or previous line that has the same level or a lower
 -- level of indentation than the current line.
@@ -51,8 +53,6 @@ function! NextIndent(exclusive, fwd, lowerlevel, skipblanks)
   endwhile
 endfunction
 ]]
-
-local silent = { silent = true }
 
 -- Moving back and forth between lines of same or lower indentation.
 nnoremap('[l', '<cmd>call NextIndent(0, 0, 0, 1)<CR>', silent)
