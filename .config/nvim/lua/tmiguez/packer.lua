@@ -80,4 +80,9 @@ return require('packer').startup(function(use)
   use { 'catppuccin/nvim', as = 'catppuccin' }
   use 'folke/tokyonight.nvim'
   use 'tiagovla/tokyodark.nvim'
+  use {
+    "folke/noice.nvim",
+    event = "VimEnter",
+    requires = { "MunifTanjim/nui.nvim" }
+  }
 end)
