@@ -19,6 +19,7 @@ vim.opt.swapfile = false -- don't create swapfiles
 vim.opt.undodir = '/home/tomiguez/.nvim/undodir' -- set undodir path. REMEMBER TO CREATE IT
 vim.opt.undofile = true -- persists undo tree
 
+-- vim.opt.laststatus = 3 -- Always show statusline
 vim.opt.cmdheight = 1 -- only one line for commands
 
 vim.opt.shortmess = vim.opt.shortmess + 'c' -- don't need to press enter so often
@@ -37,9 +38,9 @@ vim.opt.title = true -- Show folder on bar
 if string.find(vim.fn.getcwd(), vim.fn.expand("$HOME") .. '/repos/') then
   local removed_repos = string.gsub(vim.fn.getcwd(), vim.fn.expand("$HOME") .. '/repos/', '')
   local only_folder = string.gsub(removed_repos, "/([^/]+)/.+", '%1')
-  vim.opt.titlestring = only_folder
+  vim.opt.titlestring = only_folder .. " %m"
 else
-  vim.opt.titlestring = vim.fn.getcwd()
+  vim.opt.titlestring = vim.fn.getcwd() .. " %m"
 end
 
 vim.opt.hlsearch = true -- search highlighting
