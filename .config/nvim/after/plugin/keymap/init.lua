@@ -67,3 +67,16 @@ vnoremap('[l', "<Esc><cmd>call NextIndent(0, 0, 0, 1)<CR>m'gv''", silent)
 vnoremap(']l', "<Esc><cmd>call NextIndent(0, 1, 0, 1)<CR>m'gv''", silent)
 vnoremap('[L', "<Esc><cmd>call NextIndent(0, 0, 1, 1)<CR>m'gv''", silent)
 vnoremap(']L', "<Esc><cmd>call NextIndent(0, 1, 1, 1)<CR>m'gv''", silent)
+
+function ToggleHighlight()
+  vim.o.cursorcolumn = not vim.o.cursorcolumn
+  vim.o.cursorline   = not vim.o.cursorline
+end
+
+function BlinkCursor()
+  ToggleHighlight()
+
+  vim.defer_fn(ToggleHighlight, 1000)
+end
+
+nnoremap('<leader>cb', BlinkCursor, silent)
