@@ -29,8 +29,9 @@ require('noice').setup({
   },
   popupmenu = {
     enabled = true, -- enables the Noice popupmenu UI
+
     ---@type 'nui'|'cmp'
-    backend = "cmp", -- backend to use to show regular cmdline completions
+    backend = "nui", -- backend to use to show regular cmdline completions
     ---@type NoicePopupmenuItemKind|false
     -- Icons for completion item kinds (see defaults at noice.config.icons.kinds)
     kind_icons = {}, -- set to `false` to disable icons
