@@ -120,7 +120,7 @@ myStartupHook = do
     spawn "killall dunst"
 
     -- spawnOnce "lxsession"
-    spawn "compton"
+    -- spawn "DISPLAY=\":0\" ./home/tomiguez/repos/picom/build/src/picom"
     -- spawnOnce "nm-applet"
     spawnOnce "volumeicon"
     -- spawnOnce "/usr/bin/emacs --daemon" -- emacs daemon for the emacsclient
@@ -128,18 +128,18 @@ myStartupHook = do
 
     spawnOnce "slack"
 
-    spawn ("xinput set-prop 16 311 1") -- Pad natural scrolling enabled
-    spawn ("xinput set-prop 16 329 1") -- Pad tapping enabled
+    spawn ("xinput set-prop 16 312 1") -- Pad natural scrolling enabled
+    spawn ("xinput set-prop 16 328 1") -- Pad tapping enabled
     spawn ("sleep 2 && dunst")
 
     -- spawn ("sleep 2 && conky -c $HOME/.config/conky/xmonad/" ++ colorScheme ++ "-01.conkyrc")
-    spawn ("sleep 2 && trayer --edge top --align right --widthtype request --padding 6 --SetDockType true --SetPartialStrut true --expand true --monitor 1 --transparent true --alpha 0 " ++ colorTrayer ++ " --height 22")
+    spawn ("sleep 2 && trayer --edge top --align right --widthtype request --padding 6 --SetDockType true --SetPartialStrut true --expand true --monitor primary --transparent true --alpha 0 " ++ colorTrayer ++ " --height 22")
 
     -- spawnOnce "xargs xwallpaper --stretch < ~/.cache/wall"
     -- spawnOnce "~/.fehbg &"  -- set last saved feh wallpaper
     -- spawnOnce "feh --randomize --bg-fill ~/wallpapers/*"  -- feh set random wallpaper
-    spawnOnce "nitrogen --random &"   -- if you prefer nitrogen to feh
-    setWMName "LG3D"
+    -- spawnOnce "nitrogen --random &"   -- if you prefer nitrogen to feh
+    -- setWMName "LG3D"
 
 myColorizer :: Window -> Bool -> X (String, String)
 myColorizer = colorRangeFromClassName

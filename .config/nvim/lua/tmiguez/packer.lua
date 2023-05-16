@@ -23,6 +23,10 @@ return require('packer').startup(function(use)
   use 'tpope/vim-surround'
   use 'tpope/vim-repeat'
   use 'tpope/vim-fugitive'
+  use {
+    'shumphrey/fugitive-gitlab.vim',
+    requires = 'tpope/vim-fugitive'
+  }
   use 'qpkorr/vim-bufkill'
   use 'kassio/neoterm'
   use {
@@ -51,6 +55,19 @@ return require('packer').startup(function(use)
       { 'rafamadriz/friendly-snippets' },
     }
   }
+  use 'mfussenegger/nvim-dap'
+  use {
+    'suketa/nvim-dap-ruby',
+    config = function() require('dap-ruby').setup() end
+  }
+  use {
+    'rcarriga/nvim-dap-ui',
+    requires = {
+      { 'mfussenegger/nvim-dap' },
+      { 'suketa/nvim-dap-ruby' },
+    },
+    config = function() require("dapui").setup() end
+  }
   use {
     'lewis6991/gitsigns.nvim',
     config = function() require('gitsigns').setup({}) end
@@ -59,22 +76,26 @@ return require('packer').startup(function(use)
   use 'wakatime/vim-wakatime'
   use {
     "windwp/nvim-autopairs",
-      config = function() require("nvim-autopairs").setup {} end
+    config = function() require("nvim-autopairs").setup {} end
+  }
+  use 'arthurxavierx/vim-caser'
+  use {
+    'sindrets/diffview.nvim',
+    requires = 'nvim-lua/plenary.nvim'
   }
 
   -- Appearance
-  use {
-    'hoob3rt/lualine.nvim',
-    config = function() require('lualine').setup({ options = { theme = "dracula" } }) end
-  }
+  -- use {
+  --   'krivahtoo/silicon.nvim',
+  --   run = './install.sh',
+  --   config = function() require('silicon').setup { font = 'Iosevka Term=20', theme = 'Dracula' } end
+  -- }
+  use 'hoob3rt/lualine.nvim'
   use {
     'lukas-reineke/indent-blankline.nvim',
     config = function() require("indent_blankline").setup({ show_trailing_blankline_indent = false }) end
   }
-  use {
-    'xiyaowong/nvim-transparent',
-    config = function() require("transparent").setup({ enable = true }) end
-  }
+  use  'xiyaowong/nvim-transparent'
   use { 'kartikp10/noctis.nvim', requires = { 'rktjmp/lush.nvim' } }
   use { 'dracula/vim', as = 'dracula' }
   use { 'catppuccin/nvim', as = 'catppuccin' }

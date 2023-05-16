@@ -22,6 +22,11 @@ alias wisc="nmcli dev wifi"
 alias vim="nvim"
 alias emacs="emacsclient -c -a"
 
+alias g="git"
+
+alias mon="/home/tomiguez/.screenlayout/external_on_top.sh"
+alias moff="/home/tomiguez/.screenlayout/only_laptop.sh"
+
 up () {
   local d=""
   local limit="$1"

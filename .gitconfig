@@ -1,6 +1,9 @@
 [core]
 	excludesFile = ~/.gitignore_global
 	editor = /usr/bin/vim
+  pager = delta
+[interactive]
+  diffFilter = delta --color-only
 [user]
 	email = tmiguez@fu.do
 	name = Tomas Miguez
@@ -8,27 +11,45 @@
 [alias]
 	lg1 = log --graph --abbrev-commit --decorate --format=format:'%C(bold blue)%h%C(reset) - %C(bold green)(%ar)%C(reset) %C(white)%s%C(reset) %C(dim white)- %an%C(reset)%C(bold yellow)%d%C(reset)' --all
 	lg2 = log --graph --abbrev-commit --decorate --format=format:'%C(bold blue)%h%C(reset) - %C(bold cyan)%aD%C(reset) %C(bold green)(%ar)%C(reset)%C(bold yellow)%d%C(reset)%n''          %C(white)%s%C(reset) %C(dim white)- %an%C(reset)' --all
-	lg = !"git lg1"
+	lg  = log --abbrev-commit
 
-	ac = !git add . && git commit
+  p     = push
+  pc    = push -u origin @
+
+	ac    = !git add . && git commit
 	amend = commit -a --amend --no-edit
-	co = checkout
-	br = branch
-	rim = rebase -i master
+	co    = checkout
+	br    = branch
+  rb    = rebase
+  rbm   = rebase master
+	rbim  = rebase -i master
+
+  brl   = br --sort=-committerdate
+
 	autosquash = !export GIT_SEQUENCE_EDITOR=: && (git rebase -i --autosquash $1) && export GIT_SEQUENCE_EDITOR=$EDITOR
-	fixup = commit -a --fixup
-	conflicts = diff --name-only --diff-filter=U
+	fixup      = commit -a --fixup
+	conflicts  = diff --name-only --diff-filter=U
 [gpg]
 	program = gpg2
 [merge]
 	tool = vimdiff
+  conflictstyle = diff3
 [pull]
 	rebase = false
 [rebase]
 	autosquash = true
 [diff]
 	tool = vimdiff
+  colorMoved = default
 [difftool]
 	prompt = false
 [init]
 	defaultBranch = master
+[delta]
+  navigate = true    # use n and N to move between diff sections
+  light = false      # set to true if you're in a terminal w/ a light background color (e.g. the default macOS terminal)
+  line-numbers = true
+[log]
+	abbrevCommit = true
+[commit]
+	gpgsign = true

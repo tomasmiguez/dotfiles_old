@@ -7,6 +7,8 @@ require('telescope').setup {
         ["<C-q>"] = actions.send_to_qflist,
         ["<C-j>"] = actions.move_selection_next,
         ["<C-k>"] = actions.move_selection_previous,
+        ["<C-a>"] = actions.toggle_all,
+        ["<C-s>"] = actions.toggle_selection,
       }
     },
     vimgrep_arguments = {

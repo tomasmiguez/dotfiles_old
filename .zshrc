@@ -73,8 +73,10 @@ ZSH_THEME="robbyrussell"
 plugins=(
 	zsh-autosuggestions
 	dirhistory
+  git
 	ssh-agent
 	zsh-vi-mode
+  wakatime
 )
 
 source $ZSH/oh-my-zsh.sh
@@ -112,12 +114,12 @@ alias rake='noglob rake'
 
 eval "$(starship init zsh)"
 
-export PATH="$HOME/.emacs.d/bin:${KREW_ROOT:-$HOME/.krew}/bin:$PATH"
+export PATH="$HOME/scripts:$HOME/.emacs.d/bin:${KREW_ROOT:-$HOME/.krew}/bin:$PATH"
 
 export GO_PATH=~/go
 export PATH=$PATH:$GO_PATH/bin
 
-export VISUAL=vim
+export VISUAL=nvim
 export EDITOR="$VISUAL"
 
 export BROWSER="firefox"
@@ -125,6 +127,8 @@ export BROWSER="firefox"
 export KUBE_EDITOR="/usr/bin/nvim"
 
 export STARSHIP_LOG="ERROR"
+
+export GEM_SERVER="http://127.0.0.1:9300"
 
 source <(kubectl completion zsh)
 

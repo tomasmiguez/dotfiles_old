@@ -11,3 +11,4 @@ config/config.yml
 .vscode
 .vscode/*
 .solargraph.yml
+dump.rdb

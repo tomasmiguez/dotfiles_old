@@ -68,15 +68,21 @@ vnoremap(']l', "<Esc><cmd>call NextIndent(0, 1, 0, 1)<CR>m'gv''", silent)
 vnoremap('[L', "<Esc><cmd>call NextIndent(0, 0, 1, 1)<CR>m'gv''", silent)
 vnoremap(']L', "<Esc><cmd>call NextIndent(0, 1, 1, 1)<CR>m'gv''", silent)
 
-function ToggleHighlight()
+function ToggleCursorHighlight()
   vim.o.cursorcolumn = not vim.o.cursorcolumn
   vim.o.cursorline   = not vim.o.cursorline
 end
 
-function BlinkCursor()
-  ToggleHighlight()
-
-  vim.defer_fn(ToggleHighlight, 1000)
+function BlinkCursor(duration, times)
+  local timer = vim.loop.new_timer()
+  local i = 1
+  timer:start(0, duration/(times*2), vim.schedule_wrap(function()
+    ToggleCursorHighlight()
+    if i >= times*2 then
+      timer:close()  -- Always close handles to avoid leaks.
+    end
+    i = i + 1
+  end))
 end
 
-nnoremap('<leader>cb', BlinkCursor, silent)
+nnoremap('<leader>cb', function() BlinkCursor(900, 3) end, silent)
