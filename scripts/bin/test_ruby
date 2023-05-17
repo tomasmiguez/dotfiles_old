@@ -1,0 +1,10 @@
+#!/bin/bash
+
+if [ $# -eq 1 ]; then
+  TEST="$1" bundle exec rake test
+elif [ $# -ge 2 ]; then
+  TEST="$1" TESTOPTS="-n='/$2/'" bundle exec rake test
+else
+  bundle exec rake test
+fi
+

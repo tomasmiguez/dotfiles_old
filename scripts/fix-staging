@@ -1,0 +1,25 @@
+#!/bin/bash
+
+context=${0/fix-}
+context=${context/*\/}
+root_dir="/home/tomiguez/repos/kubernetes"
+
+kubectl --context=$context get deploy -l app -A -o jsonpath='{range .items[*]}{.spec.template.spec.containers[0].image} {.spec.replicas} {.metadata.name}{"\n"}{end}' | while read image replicas deploy ; do
+  project=${image##*/}
+  project=${project/:*/}
+  project=${project/-src}
+
+  [[ $image =~ ^(317208956196|registry).+/fu\.do ]] && sed -i "s,image: .*,image: $image," $root_dir/application/$project/*.yaml
+
+  [[ $project =~ ^api ]] || continue
+
+  if [[ $project == "api" ]] && [[ $context == "production" ]]; then
+    deployment_path=$root_dir/environments/$context/$project/$deploy/deployment.yaml
+  else
+    deployment_path=$root_dir/environments/$context/$project/$project.yml
+  fi
+
+  deployment_replicas=$(sed -rn '/replicas:/{s/.*: (.+)/\1/p;q};$q1' $deployment_path || sed -rn '/replicas:/s/.*: (.+)/\1/p' $root_dir/application/$project/deployment.yaml)
+
+  [[ $deployment_replicas -ne $replicas ]] && sed -i -e "/Deployment/,\${/replicas/d;/^spec:/{a\  replicas: $replicas" -e '}}' $deployment_path
+done

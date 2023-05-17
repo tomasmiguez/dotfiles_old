@@ -1,0 +1,15 @@
+#!/usr/bin/env bash
+
+shopt -s dotglob
+shopt -s nullglob
+
+directories=(~/repos/*/)
+
+choice=$(printf '%s\n' "${directories[@]}" | sort | dmenu -i -l 10 -p "Project:")
+
+if [ "$choice" ]; then
+  # alacritty --config-file=/home/tomiguez/scripts/launch-with-nvim-alacritty.yml --working-directory $choice
+  alacritty --working-directory $choice # -e /bin/zsh -c "nvim && exec zsh"
+else
+  echo "Program terminated." && exit 0
+fi
