@@ -18,6 +18,8 @@ return require('packer').startup(function(use)
     'nvim-telescope/telescope-fzf-native.nvim',
     requires = { 'nvim-telescope/telescope.nvim', 'nvim-lua/plenary.nvim' },
     run = 'make'
+    -- Additional dependencies:
+    -- ripgrep fzf fd
   }
   use 'tpope/vim-commentary'
   use 'tpope/vim-surround'
@@ -32,6 +34,8 @@ return require('packer').startup(function(use)
   use {
     'nvim-treesitter/nvim-treesitter',
     run = function() require('nvim-treesitter.install').update({ with_sync = true }) end,
+    -- Additional dependencies:
+    -- tar curl git
   }
   use { 'szw/vim-maximizer' }
   use {
@@ -54,6 +58,8 @@ return require('packer').startup(function(use)
       { 'L3MON4D3/LuaSnip' },
       { 'rafamadriz/friendly-snippets' },
     }
+    -- Additional dependencies:
+    -- git curl wget unzip tar gzip
   }
   use 'mfussenegger/nvim-dap'
   use {
