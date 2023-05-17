@@ -31,7 +31,7 @@ import qualified Data.Map as M
     -- Hooks
 import XMonad.Hooks.DynamicLog (dynamicLogWithPP, wrap, xmobarPP, xmobarColor, shorten, PP(..))
 import XMonad.Hooks.EwmhDesktops  -- for some fullscreen events, also for xcomposite in obs.
-import XMonad.Hooks.ManageDocks (avoidStruts, docksEventHook, manageDocks, ToggleStruts(..))
+import XMonad.Hooks.ManageDocks (docks, avoidStruts, docksEventHook, manageDocks, ToggleStruts(..))
 import XMonad.Hooks.ManageHelpers (isFullscreen, doFullFloat, doCenterFloat)
 import XMonad.Hooks.ServerMode
 import XMonad.Hooks.SetWMName
@@ -388,7 +388,7 @@ myKeys conf@(XConfig {XMonad.modMask = modm}) = M.fromList $
     , ((modm .|. shiftMask, xK_m     ), tagToEmptyWorkspace)
 
     --, ((modm              , xK_Tab   ), cycleRecentWS [xK_Super_L] xK_Tab xK_grave)
-    , ((modm              , xK_Tab   ), goToSelected defaultGSConfig)
+    , ((modm              , xK_Tab   ), goToSelected def)
 
     , ((modm .|. shiftMask, xK_f     ), promptSearchBrowser greenXPConfig myBrowser google)
 
@@ -463,11 +463,10 @@ myMouseBindings (XConfig {XMonad.modMask = modm}) = M.fromList $
 main :: IO ()
 main = do
     -- Launching three instances of xmobar on their monitors.
-    h <- spawnPipe ("xmobar -x 0 $HOME/.config/xmobar/" ++ colorScheme ++ "-xmobarrc")
+    h <- spawnPipe ("xmobar -x 0 $HOME/.config/xmobar/xmobarrc")
     -- the xmonad, ya know...what the WM is named after!
-    xmonad $ ewmh def
+    xmonad $ ewmh . docks $ def
         { manageHook         = myManageHook <+> manageDocks
-        , handleEventHook    = docksEventHook
                                -- Uncomment this line to enable fullscreen support on things like YouTube/Netflix.
                                -- This works perfect on SINGLE monitor systems. On multi-monitor systems,
                                -- it adds a border around the window if screen does not have focus. So, my solution
