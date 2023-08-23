@@ -53,3 +53,7 @@
 	abbrevCommit = true
 [commit]
 	gpgsign = true
+[safe]
+	directory = *
+[credential]
+	helper = store

@@ -110,6 +110,8 @@ source $ZSH/oh-my-zsh.sh
 # Allow [ or ] whereever you want
 unsetopt nomatch
 
+setopt HIST_IGNORE_SPACE
+
 alias rake='noglob rake'
 
 eval "$(starship init zsh)"
@@ -130,6 +132,8 @@ export STARSHIP_LOG="ERROR"
 
 export GEM_SERVER="http://127.0.0.1:9300"
 
+export LESSOPEN="|~/.lessfilter %s"
+
 source <(kubectl completion zsh)
 
 source /home/tomiguez/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
@@ -142,3 +146,5 @@ export NVM_DIR="$HOME/.nvm"
 #[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
 [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
 alias nvm="unalias nvm; [ -s "$NVM_DIR/nvm.sh" ] && . "$NVM_DIR/nvm.sh"; nvm $@"
+
+[ -f "/home/tomiguez/.ghcup/env" ] && source "/home/tomiguez/.ghcup/env" # ghcup-env

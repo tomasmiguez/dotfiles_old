@@ -12,3 +12,4 @@ config/config.yml
 .vscode/*
 .solargraph.yml
 dump.rdb
+gem_graph*

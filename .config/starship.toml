@@ -96,7 +96,7 @@ style = "bg:#444444 fg:blue"
 [cmd_duration]
 disabled = false
 min_time = 2_000
-format = "[[](bg:#555555 fg:#333333)took $duration[](bg:#333333 fg:#555555)]($style)"
+format = "[[](bg:#555555 fg:#333333)$duration[](bg:#333333 fg:#555555)]($style)"
 show_milliseconds = false
 style = "bold bg:#555555 fg:yellow"
 show_notifications = false
